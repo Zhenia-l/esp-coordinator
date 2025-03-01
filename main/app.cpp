@@ -43,7 +43,10 @@ esp_err_t app::process_event(const ctx_t& ctx) {
 
     switch (ctx.event) {
         case EVENT_INPUT:
-        	ret = transport::process_input(m_buffer,ctx.size);
+        ret = transport::process_input(m_buffer,ctx.size);
+        if (ret == ESP_OK) {
+            usb_serial_jtag_ll_txfifo_flush();
+        }
             break;
         case EVENT_OUTPUT:
             recv_size = transport::output_receive(m_buffer,ctx.size);

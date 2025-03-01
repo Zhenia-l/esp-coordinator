@@ -3,6 +3,15 @@
 #include <esp_err.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/semphr.h>
+#include <freertos/stream_buffer.h>
+
+#if defined(CONFIG_NCP_BUS_MODE_UART)
+#include <driver/uart.h>
+static constexpr uart_port_t UART_PORT_NUM = static_cast<uart_port_t>(CONFIG_NCP_BUS_UART_NUM);
+#elif defined(CONFIG_NCP_BUS_MODE_USB)
+#include <driver/usb_serial_jtag.h>
+#include "hal/usb_serial_jtag_ll.h"
+#endif
 
 class transport {
 private:

@@ -5,13 +5,6 @@
 #include <esp_log.h>
 #include "sdkconfig.h"
 
-#if defined(CONFIG_NCP_BUS_MODE_UART)
-#include <driver/uart.h>
-static constexpr uart_port_t UART_PORT_NUM = static_cast<uart_port_t>(CONFIG_NCP_BUS_UART_NUM);
-#elif defined(CONFIG_NCP_BUS_MODE_USB)
-#include <driver/usb_serial_jtag.h>
-#endif
-
 #include <cstring>
 
 static const char* TAG = "TRNPT";
@@ -52,6 +45,7 @@ void transport::task_int() {
             switch(event.type) {
                 case UART_DATA: {
                     ncp_event.size = uart_read_bytes(UART_PORT_NUM, m_temp_buf, event.size, portMAX_DELAY);
+                    usb_serial_jtag_ll_txfifo_flush();
                     //ESP_LOGD(TAG, "UART READ %d", ncp_event.size );
                     //ESP_LOG_BUFFER_HEX_LEVEL(TAG, m_temp_buf, ncp_event.size, ESP_LOG_DEBUG);
                     auto stored = xStreamBufferSend(m_output_buf, m_temp_buf, ncp_event.size, 0);

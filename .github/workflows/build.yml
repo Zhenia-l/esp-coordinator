@@ -20,7 +20,7 @@ jobs:
     - name: archive artifact
       run: |
         ls -l *
-        zip build/esp-coordinator-escp32-c6-usb-${{ github.tag }}.zip build/bootloader/bootloader.bin \
+        zip /tmp/esp-coordinator-escp32-c6-usb-${{ github.tag }}.zip build/bootloader/bootloader.bin \
           build/esp-coordinator.bin build/ota_data_initial.bin partition_table/partition-table.bin
     - name: upload release artifact
       if: github.event.action == 'published' && github.event == 'release'
@@ -31,6 +31,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: firmware
-        path: build/*.zip
+        path: /tmp/*.zip
         compression-level: 9
         if-no-files-found: error

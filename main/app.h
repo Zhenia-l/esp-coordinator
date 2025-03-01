@@ -2,6 +2,8 @@
 #include <esp_err.h>
 
 #include <freertos/FreeRTOS.h>
+#include <freertos/semphr.h>
+#include <freertos/stream_buffer.h>
 #include <sys/queue.h>
 
 class app {

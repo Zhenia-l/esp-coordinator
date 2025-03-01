@@ -18,7 +18,6 @@ jobs:
         target: esp32c6
         path: ''
     - name: archive artifact
-      if: github.event.action == 'published' && github.event == 'release'
       run: |
         zip build/esp-coordinator-escp32-c6-usb-${{ github.tag }}.zip build/bootloader/bootloader.bin \
           build/esp-coordinator.bin build/ota_data_initial.bin partition_table/partition-table.bin
@@ -27,3 +26,10 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         path: build/esp-coordinator-escp32-c6-usb-${{ github.tag }}.zip
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: firmware
+        path: build/*.zip
+        compression-level: 9
+        if-no-files-found: error

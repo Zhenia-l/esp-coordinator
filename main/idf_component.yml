@@ -1,7 +1,7 @@
 ## IDF Component Manager Manifest File
 dependencies:
   espressif/esp-zboss-lib: 
-    version: "1.6.4"
+    version: "1.6.2"
   
   ## Required IDF version
   idf:

@@ -43,7 +43,7 @@ esp_err_t zb_ncp::init_int() {
     zb_set_nvram_erase_at_start(0);
     zb_set_installcode_policy(0);
     zb_tc_set_use_installcode(0);
-    zigbee_erase_persistent_storage(zb_false);
+    zigbee_erase_persistent_storage(ZB_FALSE);
     //zgp_disable();
     zboss_start_no_autostart();
 

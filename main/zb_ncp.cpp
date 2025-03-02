@@ -39,13 +39,13 @@ static const zb_af_simple_desc_7_20_t ep1 = {
 
 esp_err_t zb_ncp::init_int() {
 	ZB_INIT();
-	zb_set_max_children(64);
+	zb_set_max_children(32);
     zb_set_nvram_erase_at_start(0);
     zb_set_installcode_policy(0);
     zb_tc_set_use_installcode(0);
     //zgp_disable();
-
-    zboss_start_no_autostart();
+    zboss_start()
+    // zboss_start_no_autostart();
 
     zb_add_simple_descriptor(&ep1);
 

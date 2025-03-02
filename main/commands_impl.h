@@ -46,22 +46,22 @@ struct zb_ncp::cmd_handle<GET_MODULE_VERSION> : immediate_cmd_process<GET_MODULE
 //     response: [...commonResponse],
 // },
 
-template <>
-struct zb_ncp::cmd_handle<NCP_RESET> : immediate_cmd_process<NCP_RESET>,
-		general_status_arg<NCP_RESET,uint8_t> {
-	static void process_status_arg(ncp_generic_status_t& status, uint8_t options) {
-    	if (options == 1 || options == 2) {
-            ESP_LOGI(TAG,"erase nvram");
-            zb_nvram_erase();
-        } 
-        if (options == 2) {
-            ESP_LOGI(TAG,"factory reset");
-            zb_bdb_reset_via_local_action(0);
-        }
-        ESP_LOGI(TAG,"restart");
-        esp_restart();
-    }
-};
+// template <>
+// struct zb_ncp::cmd_handle<NCP_RESET> : immediate_cmd_process<NCP_RESET>,
+// 		general_status_arg<NCP_RESET,uint8_t> {
+// 	static void process_status_arg(ncp_generic_status_t& status, uint8_t options) {
+//     	if (options == 1 || options == 2) {
+//             ESP_LOGI(TAG,"erase nvram");
+//             zb_nvram_erase();
+//         } 
+//         if (options == 2) {
+//             ESP_LOGI(TAG,"factory reset");
+//             zb_bdb_reset_via_local_action(0);
+//         }
+//         ESP_LOGI(TAG,"restart");
+//         esp_restart();
+//     }
+// };
 
 // Requests current Zigbee role of the local device
 // [CommandId.GET_ZIGBEE_ROLE]: {
